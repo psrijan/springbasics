@@ -5,12 +5,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name="BANK_ACCOUNT")
-public class BankAccount {
+public class BankAccount implements Serializable {
 
     @Id
     private Long id;

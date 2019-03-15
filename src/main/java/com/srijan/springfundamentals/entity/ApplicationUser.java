@@ -6,13 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "USER")
-public class ApplicationUser {
+public class ApplicationUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,5 +42,18 @@ public class ApplicationUser {
 
     public ApplicationUser(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationUser{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", username='" + username + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

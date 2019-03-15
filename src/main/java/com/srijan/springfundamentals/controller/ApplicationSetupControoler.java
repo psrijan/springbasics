@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-public class StaticDataController {
+public class ApplicationSetupControoler {
+
 
 
 }
