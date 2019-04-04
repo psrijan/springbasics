@@ -11,11 +11,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<ApplicationUser, Long> {
 
     @Query("select u from ApplicationUser u where username=:username")
-    public Optional<ApplicationUser> findByUsername(@Param("username") String username);
-
+    Optional<ApplicationUser> findByUsername(@Param("username") String username);
 
     @Query("select u from ApplicationUser u where u.role = :role")
-    public Optional<List<ApplicationUser>> findByRole(@Param("role") String role);
-
+    Optional<List<ApplicationUser>> findByRole(@Param("role") String role);
 
 }

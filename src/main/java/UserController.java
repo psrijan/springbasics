@@ -1,4 +1,4 @@
-import com.srijan.springfundamentals.dto.UserDTO;
+import com.srijan.springfundamentals.dto.response.UserDetail;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +11,12 @@ import java.util.List;
 public class UserController {
 
     @GetMapping
-    public List<UserDTO> getAllUsers() {
-        List<UserDTO> users = new ArrayList<>();
-        users.add(new UserDTO("Srijan"));
-        users.add(new UserDTO("Shristi"));
-        users.add(new UserDTO("Swetha"));
-        users.add(new UserDTO("Sabita"));
+    public List<UserDetail> getAllUsers() {
+        List<UserDetail> users = new ArrayList<>();
+        users.add(new UserDetail("Srijan"));
+        users.add(new UserDetail("Shristi"));
+        users.add(new UserDetail("Swetha"));
+        users.add(new UserDetail("Sabita"));
         return users;
     }
 }
