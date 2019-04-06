@@ -1,5 +1,6 @@
 package com.srijan.springfundamentals.controller;
 
+import com.srijan.springfundamentals.advice.qualifier.LogTimeExecution;
 import com.srijan.springfundamentals.dto.request.CreateWordRequest;
 import com.srijan.springfundamentals.dto.request.UpdateWordRequest;
 import com.srijan.springfundamentals.dto.response.WordDetail;
@@ -7,9 +8,13 @@ import com.srijan.springfundamentals.dto.server.GenericResponse;
 import com.srijan.springfundamentals.service.impl.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -20,8 +25,9 @@ public class WordController {
     @Autowired
     private WordService wordService;
 
+    @LogTimeExecution
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse addWord(CreateWordRequest createWordRequest) {
+    public GenericResponse addWord(@RequestBody CreateWordRequest createWordRequest) {
         return wordService.addNewWord(createWordRequest);
     }
 
@@ -31,13 +37,19 @@ public class WordController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse updateWord(UpdateWordRequest updateWordRequest) {
+    public GenericResponse updateWord(@RequestBody UpdateWordRequest updateWordRequest) {
         return wordService.updateWord(updateWordRequest);
     }
 
     @PostMapping(path = "/list" , produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List listSpecificWords(List<String> words) {
+    public List listSpecificWords(@RequestBody List<String> words) {
         return wordService.fetchSpecificWords(words);
     }
 
+
+//    @ExceptionHandler(HttpMessageNotReadableException.class)
+//    public ResponseEntity<GenericResponse> handleContentNotAllowedException(HttpMessageNotReadableException unfe) {
+//        List<String> errors = Collections.singletonList(unfe.getMessage());
+//        return new ResponseEntity<>(new GenericResponse(false, unfe.getMessage()), HttpStatus.NOT_FOUND);
+//    }
 }
