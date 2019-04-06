@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Deprecated
 //@Component
 @Slf4j
 //@Order(1)
