@@ -1,7 +1,7 @@
 package com.srijan.springfundamentals;
 
 import com.srijan.springfundamentals.entity.Word;
-import com.srijan.springfundamentals.excel.ExcelReader;
+import com.srijan.springfundamentals.util.ExcelReader;
 import com.srijan.springfundamentals.repository.WordRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Slf4j
@@ -22,8 +25,13 @@ public class MyCommandLineRunner implements CommandLineRunner {
     private String enableInitialData;
 
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public void run(String... args) throws Exception {
+
+        testEntityManager();
 
         if (enableInitialData.equalsIgnoreCase("Y")) {
             List<Word> wordList = ExcelReader.parseExcel();
@@ -32,5 +40,11 @@ public class MyCommandLineRunner implements CommandLineRunner {
                 wordRepository.save(word);
             });
         }
+    }
+
+    public void testEntityManager() {
+        Query query = entityManager.createQuery("select t from Word t where t.name like '%a'");
+        List<Word> wordList = query.getResultList();
+        log.debug(" SIze {}  {} {} " ,  wordList.size() ,wordList.get(0).getName() , wordList.get(0).getDefinition());
     }
 }

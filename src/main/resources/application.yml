@@ -17,8 +17,8 @@ jackson:
       WRITE_DATES_AS_TIMESTAMPS: false
       INDENT_OUTPUT: false
 excel:
-  word: C:\\excel\
-  sample: C:\\excel\sample\sample.xlsx
+  word: C:\\util\
+  sample: C:\\util\sample\sample.xlsx
 initial:
   data: N
 logging:

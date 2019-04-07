@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.print.attribute.standard.Media;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +28,7 @@ public class WordController {
 
     @Autowired
     private WordService wordService;
+
 
     @LogTimeExecution
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,5 +50,5 @@ public class WordController {
     public List listSpecificWords(@RequestBody List<String> words) {
         return wordService.fetchSpecificWords(words);
     }
-    
+
 }
