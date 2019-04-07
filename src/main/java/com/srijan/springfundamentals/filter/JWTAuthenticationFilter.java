@@ -36,6 +36,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        logger.info("Attemtping Authentication ");
         try {
             LoginRequest loginRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), LoginRequest.class);
@@ -57,6 +58,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        logger.info("Successful Authentication");
         ApplicationUser applicationUser = (ApplicationUser)authResult.getPrincipal();
         String token = jwtTokenProvider.createToken(applicationUser.getUsername() , Arrays.asList("ADMIN" , "USER")); //@todo change the hardcoded roles list
         response.setHeader(SECURITY_HEADER_STRING, TOKEN_PREFIX+ token);

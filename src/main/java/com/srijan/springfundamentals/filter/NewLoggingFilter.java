@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 @Component
 @Slf4j
 public class NewLoggingFilter implements Filter {
-    private static final Logger LOG = LoggerFactory.getLogger(LoggingFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NewLoggingFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

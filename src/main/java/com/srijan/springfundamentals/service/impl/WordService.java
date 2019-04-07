@@ -2,6 +2,7 @@ package com.srijan.springfundamentals.service.impl;
 
 import com.srijan.springfundamentals.dto.request.CreateWordRequest;
 import com.srijan.springfundamentals.dto.request.UpdateWordRequest;
+import com.srijan.springfundamentals.dto.response.WordSetDetail;
 import com.srijan.springfundamentals.dto.server.GenericResponse;
 import com.srijan.springfundamentals.dto.response.WordDetail;
 import com.srijan.springfundamentals.entity.Word;
@@ -25,6 +26,7 @@ public class WordService {
     ModelMapper modelMapper = new ModelMapper();
 
     public List<WordDetail> fetchAllWords(Pageable pageable) {
+        log.debug("Fetching Words from Wordservice...");
         List<Word> words = wordRepository.findAllWords(pageable);
         return words.stream().map(word -> modelMapper.map(word, WordDetail.class)).collect(Collectors.toList());
     }

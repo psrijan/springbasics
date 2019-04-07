@@ -6,8 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class WordDetail extends ModelBase {
-    private Long id;
-    private String name;
-    private String definition;
+public class WordSetDetail extends ModelBase {
+    public Long id;
+    public String name;
+    public String code;
+    public String type;
 }

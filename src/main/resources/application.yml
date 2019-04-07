@@ -23,4 +23,4 @@ initial:
   data: N
 logging:
   level:
-    com.srijan: DEBUG
+    com.srijan.springfundamentals: DEBUG
