@@ -1,5 +1,6 @@
 package com.srijan.springfundamentals.config;
 
+import com.srijan.springfundamentals.entity.AuthorityName;
 import com.srijan.springfundamentals.filter.JWTAuthenticationFilter;
 import com.srijan.springfundamentals.filter.JWTAuthorizationFilter;
 import com.srijan.springfundamentals.provider.JwtTokenProvider;
@@ -18,7 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.srijan.springfundamentals.constants.SecurityConstants.SIGN_UP_URL;
+import static com.srijan.springfundamentals.constants.SecurityConstants.*;
 
 @EnableWebSecurity
 @Configuration
@@ -43,12 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(WORD_GROUP_URL).hasRole(AuthorityName.USER.toString())
+//                .antMatchers(SENTENCE_URL).hasRole(AuthorityName.USER.toString())
+//                .antMatchers(WORD_URL).hasRole(AuthorityName.USER.toString())
+//                .antMatchers("/word").hasRole(AuthorityName.USER.toString())
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager() ,jwtTokenProvider))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtTokenProvider) )
                 // this disables session creation on Spring Security
+                .requestCache().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 
     @Override

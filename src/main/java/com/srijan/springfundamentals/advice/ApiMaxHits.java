@@ -21,10 +21,10 @@ public class ApiMaxHits {
         String username ="";
         ApplicationUser applicationUser =  userRepository.findByUsername(username).get();
 
-        if(applicationUser.getApiHits()< 1000) {
-            Object result = joinPoint.proceed();
-            return result;
-        }
+//        if(applicationUser.getApiHits()< 1000) {
+//            Object result = joinPoint.proceed();
+//            return result;
+//        }
 
         return null;
     }

@@ -3,8 +3,6 @@ package com.srijan.springfundamentals.filter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.io.IOUtils;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -43,8 +41,6 @@ public class LoggingFilter extends OncePerRequestFilter {
         } else {
             log.debug("{} {} {} {}", prefix, httpServletRequest.getMethod(), httpServletRequest.getRequestURI(), requestBody);
         }
-
-        //log response after it is returned back from the filterchain.
     }
 
     private ContentCachingRequestWrapper wrappedRequest(HttpServletRequest request) {

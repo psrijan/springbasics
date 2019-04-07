@@ -17,10 +17,10 @@ public class Word {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NAME" , length = 40, nullable =  false)
+    @Column(name = "NAME" , length = 200, nullable =  false)
     private String name;
 
-    @Column(name="DEFINITION" , length = 500)
+    @Column(name="DEFINITION" , length = 1000)
     private String definition;
 
     public Word() {

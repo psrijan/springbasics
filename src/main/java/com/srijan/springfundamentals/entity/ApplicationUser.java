@@ -2,6 +2,8 @@ package com.srijan.springfundamentals.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -16,6 +20,7 @@ import java.util.Collection;
 @Table(name = "USER")
 public class ApplicationUser implements UserDetails {
 
+    @Column(name = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,19 +37,21 @@ public class ApplicationUser implements UserDetails {
     @Column(name = "EMAIL", length = 50 )
     private String email;
 
-    @Column(name = "PASSWORD", length = 50 )
+    @Column(name = "PASSWORD", length = 200 )
     private String password;
 
-    @Column(name="ROLE" , length = 50)
-    private String role;
-
-    @Column(name="API_HITS")
-    private Long apiHits;
+    @JoinTable(name = "user_authority", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "authority_id", referencedColumnName = "id") })
+    @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
+    private List<Authority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ADMIN") , new SimpleGrantedAuthority("USER"));
+        return authorities.stream().map(authority -> new SimpleGrantedAuthority(authority.getName().toString())).collect(Collectors.toList());
+//        return Arrays.asList(new SimpleGrantedAuthority("ADMIN") , new SimpleGrantedAuthority("USER")); @todo remove later
     }
+
+
 
     public ApplicationUser() {
     }
