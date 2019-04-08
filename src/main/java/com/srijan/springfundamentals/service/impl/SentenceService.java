@@ -37,6 +37,7 @@ public class SentenceService {
     }
 
     public List<SentenceDetail> findSentencesForWord(Long wordId) {
+
         log.debug("Find sentence for word service");
         Optional<List<Sentence>> optionalSentences = sentenceRepository.findSentenceByWord(new Word(wordId));
         return optionalSentences
