@@ -1,5 +1,6 @@
 package com.srijan.springfundamentals.repository;
 
+import com.srijan.springfundamentals.entity.UserWordReview;
 import com.srijan.springfundamentals.entity.Word;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

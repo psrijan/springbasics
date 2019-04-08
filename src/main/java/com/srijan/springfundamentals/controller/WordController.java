@@ -4,6 +4,7 @@ import com.srijan.springfundamentals.dto.request.CreateWordRequest;
 import com.srijan.springfundamentals.dto.request.UpdateWordRequest;
 import com.srijan.springfundamentals.dto.response.WordDetail;
 import com.srijan.springfundamentals.dto.server.GenericResponse;
+import com.srijan.springfundamentals.dto.server.WordReviewRequest;
 import com.srijan.springfundamentals.service.impl.WordService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -22,7 +23,6 @@ public class WordController {
 
     @Autowired
     private WordService wordService;
-
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
     public GenericResponse addWord(@RequestBody CreateWordRequest createWordRequest) {
@@ -46,6 +46,12 @@ public class WordController {
     public List<WordDetail> listSpecificWords(@RequestBody List<String> words) {
         log.info("Inside Specific Word...");
         return wordService.fetchSpecificWords(words);
+    }
+
+    @PostMapping(path = "/review" , produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE)
+    public GenericResponse updateUserWordReview(@RequestBody WordReviewRequest wordReviewRequest) {
+        log.info("Update User Word Review...");
+        return  wordService.updateWordReview(wordReviewRequest);
     }
 
 }

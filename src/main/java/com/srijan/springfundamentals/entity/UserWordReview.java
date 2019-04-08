@@ -2,6 +2,8 @@ package com.srijan.springfundamentals.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,12 +19,14 @@ public class UserWordReview {
     @Column(name = "ID")
     private Long id;
 
-    @OneToOne(mappedBy = "id" , fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID" ,nullable = false)
+    @Fetch(FetchMode.SELECT)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID" ,nullable = false ,referencedColumnName = "ID")
     private ApplicationUser applicationUser;
 
-    @OneToOne(mappedBy = "id" , fetch = FetchType.EAGER)
-    @JoinColumn(name="WORD_ID" , nullable=false)
+    @Fetch(FetchMode.SELECT)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="WORD_ID" , nullable=false , referencedColumnName = "ID")
     private Word word;
 
     @Column(name="CONSECUTIVE_CORRECT_COUNT")
