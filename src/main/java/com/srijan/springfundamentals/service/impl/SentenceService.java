@@ -28,6 +28,7 @@ public class SentenceService {
     ModelMapper modelMapper = new ModelMapper();
 
     public GenericResponse addNewSentence(CreateSentenceRequest createSentenceRequest) {
+        log.info("Add new sentence service");
         Sentence sentence = new Sentence();
         sentence.setWord(new Word(createSentenceRequest.getWordId()));
         sentence.setValue(createSentenceRequest.getSentence());
@@ -36,6 +37,7 @@ public class SentenceService {
     }
 
     public List<SentenceDetail> findSentencesForWord(Long wordId) {
+        log.debug("Find sentence for word service");
         Optional<List<Sentence>> optionalSentences = sentenceRepository.findSentenceByWord(new Word(wordId));
         return optionalSentences
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find any sentences"))
@@ -44,6 +46,7 @@ public class SentenceService {
     }
 
     public List<SentenceDetail> findAllSentences(Pageable pageable) {
+        log.debug("Find all sentence service");
         List<Sentence> sentences = sentenceRepository.findAll();
         Optional<List<Sentence>> optionalSentences = Optional.ofNullable(sentences);
         return optionalSentences.orElseThrow(() -> new EntityNotFoundException("Unable to find Sentences"))
@@ -52,6 +55,7 @@ public class SentenceService {
     }
 
     public GenericResponse updateSentence(UpdateSentenceRequest updateSentenceRequest ) {
+        log.debug("update sentene service");
         Sentence sentence=modelMapper.map(updateSentenceRequest , Sentence.class);
         sentenceRepository.save(sentence);
         return GenericResponse.builder().success(true).message("Successfully Updated Sentence").build();
