@@ -3,8 +3,6 @@ package com.srijan.springfundamentals.filter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-@Order(1)
-@Component
 @Slf4j
 public class NewLoggingFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(NewLoggingFilter.class);
